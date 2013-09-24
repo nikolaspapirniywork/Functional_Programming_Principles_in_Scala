@@ -24,4 +24,21 @@ object Main {
     }
     loopOverChars(chars, 0)
   }
+
+  def countChange(money: Int, coins: List[Int]): Int = {
+    def countChangeAfterCheck(money: Int, coins: List[Int]): Int = {
+      var eligibleCoins = coins.filter(_ <= money)
+
+      if (money == 0)
+        1
+      else if (money < 0 || eligibleCoins.length == 0)
+        0
+      else
+        countChangeAfterCheck(money - coins.head, coins) + countChangeAfterCheck(money, coins.tail)
+    }
+
+    if (money != 0)
+      countChangeAfterCheck(money, coins)
+    else 0
+  }
 }
